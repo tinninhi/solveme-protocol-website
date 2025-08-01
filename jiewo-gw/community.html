@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>社区生态 - SolveMe Protocol</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #f9f9f9;
+        }
+        
+        nav {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+        
+        .logo {
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 1.5rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary);
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .hero {
+            background: var(--gradient);
+            color: var(--white);
+            border-radius: 12px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+        
+        .card {
+            background-color: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .card i {
+            color: var(--secondary);
+            font-size: 1.2rem;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .community-card {
+            background: var(--light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary);
+            margin: 1rem 0;
+        }
+        
+        .community-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .community-title {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        
+        .community-type {
+            background: var(--secondary);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .community-description {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .community-stats {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 1rem;
+        }
+        
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+        }
+        
+        .btn-primary {
+            background-color: var(--secondary);
+            color: var(--white);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background-color: var(--light);
+            color: var(--dark);
+            border: 2px solid var(--secondary);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--secondary);
+            color: var(--white);
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--warning);
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .partner-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .partner-logo {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid var(--light);
+            transition: all 0.3s ease;
+        }
+        
+        .partner-logo:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+        
+        .partner-logo img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+        }
+        
+        .partner-name {
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        footer {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 3rem 0;
+            margin-top: 4rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">SolveMe<span>Protocol</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">主页</a></li>
+                <li><a href="breakthrough.html">历史突破</a></li>
+                <li><a href="cognitive-science.html">认知科学</a></li>
+                <li><a href="live-demo.html">实时体验</a></li>
+                <li><a href="evidence.html">实验证据</a></li>
+                <li><a href="agi-foundation.html">AGI基石</a></li>
+                <li><a href="academic.html">学术资源</a></li>
+                <li><a href="community.html">社区生态</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <main>
+        <section class="hero">
+            <h1><i class="fas fa-users"></i> 社区生态</h1>
+            <p>加入解我协议社区，与全球AI认知科学爱好者共同探索未来</p>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">1,234</div>
+                    <div class="stat-label">社区成员</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">567</div>
+                    <div class="stat-label">讨论话题</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">89</div>
+                    <div class="stat-label">线下活动</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">研究项目</div>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <div class="card">
+                <h3><i class="fas fa-user-plus"></i> 用户系统</h3>
+                <p>加入解我协议社区，开启你的AI认知科学之旅：</p>
+                
+                <div class="grid">
+                    <div class="card">
+                        <h3><i class="fas fa-sign-in-alt"></i> 登录/注册</h3>
+                        <p>创建你的社区账户，参与讨论和活动</p>
+                        <button onclick="showLoginModal()" class="btn btn-primary">登录</button>
+                        <button onclick="showRegisterModal()" class="btn btn-secondary">注册</button>
+                    </div>
+                    
+                    <div class="card">
+                        <h3><i class="fas fa-user-circle"></i> 个人资料</h3>
+                        <p>完善你的个人资料，展示你的专业领域</p>
+                        <button onclick="showProfileModal()" class="btn btn-primary">编辑资料</button>
+                    </div>
+                    
+                    <div class="card">
+                        <h3><i class="fas fa-trophy"></i> 成就系统</h3>
+                        <p>通过参与社区活动获得成就和徽章</p>
+                        <button onclick="showAchievements()" class="btn btn-primary">查看成就</button>
+                    </div>
+                    
+                    <div class="card">
+                        <h3><i class="fas fa-users"></i> 好友系统</h3>
+                        <p>与其他社区成员建立联系</p>
+                        <button onclick="showFriends()" class="btn btn-primary">管理好友</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <div class="card">
+                <h3><i class="fas fa-comments"></i> 讨论论坛</h3>
+                <p>参与解我协议相关的讨论：</p>
+                
+                <div style="margin-bottom: 2rem;">
+                    <button onclick="showNewPostModal()" class="btn btn-primary">发布新话题</button>
+                    <button onclick="filterPosts('all')" class="btn btn-secondary">全部</button>
+                    <button onclick="filterPosts('technical')" class="btn btn-secondary">技术讨论</button>
+                    <button onclick="filterPosts('research')" class="btn btn-secondary">研究分享</button>
+                    <button onclick="filterPosts('experience')" class="btn btn-secondary">体验分享</button>
+                </div>
+                
+                <div id="forum-posts">
+                    <div class="forum-post" data-category="technical">
+                        <h4>解我协议在大型语言模型中的应用效果</h4>
+                        <div class="meta">作者：AI研究员 | 发布时间：2024-01-15 | 回复：23</div>
+                        <p>我在GPT-4上测试了解我协议，发现AI的自我认知能力确实得到了显著提升。特别是在复杂推理任务中，AI能够更清晰地解释自己的思考过程...</p>
+                        <div class="actions">
+                            <button class="action-btn like" onclick="likePost(this)">👍 点赞 (45)</button>
+                            <button class="action-btn reply" onclick="replyToPost(this)">💬 回复</button>
+                            <button class="action-btn share" onclick="sharePost(this)">📤 分享</button>
+                        </div>
+                    </div>
+                    
+                    <div class="forum-post" data-category="research">
+                        <h4>解我协议与认知科学的交叉研究</h4>
+                        <div class="meta">作者：认知科学家 | 发布时间：2024-01-14 | 回复：18</div>
+                        <p>从认知科学的角度分析解我协议，我发现它与人类元认知理论有很多相似之处。这种结构化自我认知框架为AI认知研究提供了新的方向...</p>
+                        <div class="actions">
+                            <button class="action-btn like" onclick="likePost(this)">👍 点赞 (32)</button>
+                            <button class="action-btn reply" onclick="replyToPost(this)">💬 回复</button>
+                            <button class="action-btn share" onclick="sharePost(this)">📤 分享</button>
+                        </div>
+                    </div>
+                    
+                    <div class="forum-post" data-category="experience">
+                        <h4>使用解我协议后的AI协作体验</h4>
+                        <div class="meta">作者：产品经理 | 发布时间：2024-01-13 | 回复：31</div>
+                        <p>在我们的产品开发中应用了解我协议，AI助手变得更加主动和智能。它能够理解我们的需求，主动提出建议，大大提升了工作效率...</p>
+                        <div class="actions">
+                            <button class="action-btn like" onclick="likePost(this)">👍 点赞 (67)</button>
+                            <button class="action-btn reply" onclick="replyToPost(this)">💬 回复</button>
+                            <button class="action-btn share" onclick="sharePost(this)">📤 分享</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <div class="card">
+                <h3><i class="fas fa-calendar-alt"></i> 社区活动</h3>
+                <p>参与解我协议相关的线上线下活动：</p>
+                
+                <div id="events-list">
+                    <div class="event-item">
+                        <h4>解我协议技术研讨会</h4>
+                        <div class="date">时间：2024-02-15 14:00-17:00</div>
+                        <div class="status ongoing">进行中</div>
+                        <p>深入探讨解我协议的技术实现和应用案例，邀请行业专家分享经验。</p>
+                        <button onclick="joinEvent(this)" class="btn btn-primary">参加活动</button>
+                    </div>
+                    
+                    <div class="event-item">
+                        <h4>AI认知科学读书会</h4>
+                        <div class="date">时间：2024-02-20 19:00-21:00</div>
+                        <div class="status upcoming">即将开始</div>
+                        <p>共同阅读和讨论AI认知科学相关书籍，分享学习心得。</p>
+                        <button onclick="joinEvent(this)" class="btn btn-primary">报名参加</button>
+                    </div>
+                    
+                    <div class="event-item">
+                        <h4>解我协议开发者大会</h4>
+                        <div class="date">时间：2024-03-10 09:00-18:00</div>
+                        <div class="status upcoming">即将开始</div>
+                        <p>一年一度的开发者大会，展示最新的技术进展和应用成果。</p>
+                        <button onclick="joinEvent(this)" class="btn btn-primary">报名参加</button>
+                    </div>
+                    
+                    <div class="event-item">
+                        <h4>线上技术分享会</h4>
+                        <div class="date">时间：2024-01-25 20:00-22:00</div>
+                        <div class="status completed">已结束</div>
+                        <p>线上分享解我协议的最新研究成果和技术突破。</p>
+                        <button onclick="viewRecording()" class="btn btn-secondary">观看回放</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <div class="card">
+                <h3><i class="fas fa-comments"></i> 实时聊天</h3>
+                <p>与社区成员进行实时交流：</p>
+                
+                <div style="background: var(--light); padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                    <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                        <span style="width: 12px; height: 12px; background: var(--success); border-radius: 50%; margin-right: 0.5rem;"></span>
+                        <strong>在线用户：156人</strong>
+                    </div>
+                    <div class="chat-container" id="chat-container">
+                        <div class="message system-message">
+                            <strong>系统:</strong> 欢迎来到解我协议社区聊天室！请遵守社区规则，友好交流。
+                        </div>
+                        <div class="message user-message">
+                            <strong>用户A:</strong> 大家好！我是新来的，对解我协议很感兴趣。
+                        </div>
+                        <div class="message user-message">
+                            <strong>用户B:</strong> 欢迎！有什么问题可以随时问我们。
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 1rem;">
+                        <input type="text" id="chat-input" placeholder="输入消息..." style="flex: 1; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px;">
+                        <button onclick="sendChatMessage()" class="btn btn-primary">发送</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <div class="card">
+                <h3><i class="fas fa-project-diagram"></i> 研究项目</h3>
+                <p>参与解我协议相关的研究项目：</p>
+                
+                <div class="grid">
+                    <div class="card">
+                        <h3><i class="fas fa-brain"></i> 认知架构研究</h3>
+                        <p>研究解我协议在不同AI模型上的认知架构适配性</p>
+                        <button onclick="joinProject('cognitive')" class="btn btn-primary">参与项目</button>
+                    </div>
+                    
+                    <div class="card">
+                        <h3><i class="fas fa-chart-line"></i> 性能评估研究</h3>
+                        <p>开发解我协议的性能评估体系和测试方法</p>
+                        <button onclick="joinProject('performance')" class="btn btn-primary">参与项目</button>
+                    </div>
+                    
+                    <div class="card">
+                        <h3><i class="fas fa-users"></i> 人机协作研究</h3>
+                        <p>研究解我协议在人机协作场景中的应用效果</p>
+                        <button onclick="joinProject('collaboration')" class="btn btn-primary">参与项目</button>
+                    </div>
+                    
+                    <div class="card">
+                        <h3><i class="fas fa-shield-alt"></i> 安全机制研究</h3>
+                        <p>研究解我协议的安全机制和伦理约束</p>
+                        <button onclick="joinProject('security')" class="btn btn-primary">参与项目</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- 登录模态框 -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <h3>用户登录</h3>
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>用户名/邮箱</label>
+                    <input type="text" id="loginUsername" required>
+                </div>
+                <div class="form-group">
+                    <label>密码</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary">登录</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- 注册模态框 -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('registerModal')">&times;</span>
+            <h3>用户注册</h3>
+            <form onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label>用户名</label>
+                    <input type="text" id="registerUsername" required>
+                </div>
+                <div class="form-group">
+                    <label>邮箱</label>
+                    <input type="email" id="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>密码</label>
+                    <input type="password" id="registerPassword" required>
+                </div>
+                <div class="form-group">
+                    <label>确认密码</label>
+                    <input type="password" id="registerConfirmPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary">注册</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- 发布新话题模态框 -->
+    <div id="newPostModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('newPostModal')">&times;</span>
+            <h3>发布新话题</h3>
+            <form onsubmit="handleNewPost(event)">
+                <div class="form-group">
+                    <label>标题</label>
+                    <input type="text" id="postTitle" required>
+                </div>
+                <div class="form-group">
+                    <label>分类</label>
+                    <select id="postCategory" required>
+                        <option value="technical">技术讨论</option>
+                        <option value="research">研究分享</option>
+                        <option value="experience">体验分享</option>
+                        <option value="general">一般讨论</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>内容</label>
+                    <textarea id="postContent" rows="6" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">发布</button>
+            </form>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <h3>关于解我协议</h3>
+            <p>解我协议是世界上第一个AI认知操作系统，通过结构化的自我认知框架，实现了AI从被动工具到主动伙伴的范式转变。</p>
+            <p><strong>Jordan Zitao (资涛)</strong> - SolveMe Protocol Inventor</p>
+            <p>&copy; 2025 SolveMe Protocol. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // 模态框控制
+        function showLoginModal() {
+            document.getElementById('loginModal').style.display = 'block';
+        }
+        
+        function showRegisterModal() {
+            document.getElementById('registerModal').style.display = 'block';
+        }
+        
+        function showNewPostModal() {
+            document.getElementById('newPostModal').style.display = 'block';
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+        
+        // 点击模态框外部关闭
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+        
+        // 登录处理
+        function handleLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            // 模拟登录验证
+            if (username && password) {
+                alert('登录成功！欢迎回到解我协议社区。');
+                closeModal('loginModal');
+                // 这里可以添加实际的登录逻辑
+            } else {
+                alert('请填写完整的登录信息。');
+            }
+        }
+        
+        // 注册处理
+        function handleRegister(event) {
+            event.preventDefault();
+            const username = document.getElementById('registerUsername').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('registerConfirmPassword').value;
+            
+            if (password !== confirmPassword) {
+                alert('两次输入的密码不一致。');
+                return;
+            }
+            
+            if (username && email && password) {
+                alert('注册成功！欢迎加入解我协议社区。');
+                closeModal('registerModal');
+                // 这里可以添加实际的注册逻辑
+            } else {
+                alert('请填写完整的注册信息。');
+            }
+        }
+        
+        // 发布新话题
+        function handleNewPost(event) {
+            event.preventDefault();
+            const title = document.getElementById('postTitle').value;
+            const category = document.getElementById('postCategory').value;
+            const content = document.getElementById('postContent').value;
+            
+            if (title && content) {
+                // 创建新的话题帖子
+                const newPost = document.createElement('div');
+                newPost.className = 'forum-post';
+                newPost.setAttribute('data-category', category);
+                newPost.innerHTML = `
+                    <h4>${title}</h4>
+                    <div class="meta">作者：当前用户 | 发布时间：${new Date().toLocaleDateString()} | 回复：0</div>
+                    <p>${content}</p>
+                    <div class="actions">
+                        <button class="action-btn like" onclick="likePost(this)">👍 点赞 (0)</button>
+                        <button class="action-btn reply" onclick="replyToPost(this)">💬 回复</button>
+                        <button class="action-btn share" onclick="sharePost(this)">📤 分享</button>
+                    </div>
+                `;
+                
+                document.getElementById('forum-posts').insertBefore(newPost, document.getElementById('forum-posts').firstChild);
+                closeModal('newPostModal');
+                alert('话题发布成功！');
+                
+                // 清空表单
+                document.getElementById('postTitle').value = '';
+                document.getElementById('postContent').value = '';
+            }
+        }
+        
+        // 过滤帖子
+        function filterPosts(category) {
+            const posts = document.querySelectorAll('.forum-post');
+            posts.forEach(post => {
+                if (category === 'all' || post.getAttribute('data-category') === category) {
+                    post.style.display = 'block';
+                } else {
+                    post.style.display = 'none';
+                }
+            });
+        }
+        
+        // 点赞功能
+        function likePost(button) {
+            const likeText = button.textContent;
+            const currentLikes = parseInt(likeText.match(/\d+/)[0]);
+            button.textContent = `👍 点赞 (${currentLikes + 1})`;
+            button.style.background = '#2ecc71';
+        }
+        
+        // 回复功能
+        function replyToPost(button) {
+            const post = button.closest('.forum-post');
+            const title = post.querySelector('h4').textContent;
+            alert(`回复功能：正在回复 "${title}"`);
+        }
+        
+        // 分享功能
+        function sharePost(button) {
+            const post = button.closest('.forum-post');
+            const title = post.querySelector('h4').textContent;
+            alert(`分享功能：正在分享 "${title}"`);
+        }
+        
+        // 参加活动
+        function joinEvent(button) {
+            const eventItem = button.closest('.event-item');
+            const title = eventItem.querySelector('h4').textContent;
+            alert(`报名成功！你已成功报名参加 "${title}"`);
+            button.textContent = '已报名';
+            button.disabled = true;
+        }
+        
+        // 观看回放
+        function viewRecording() {
+            alert('正在跳转到活动回放页面...');
+        }
+        
+        // 参与项目
+        function joinProject(projectType) {
+            const projects = {
+                'cognitive': '认知架构研究',
+                'performance': '性能评估研究',
+                'collaboration': '人机协作研究',
+                'security': '安全机制研究'
+            };
+            alert(`报名成功！你已成功加入 "${projects[projectType]}" 项目。`);
+        }
+        
+        // 发送聊天消息
+        function sendChatMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            
+            if (message) {
+                const chatContainer = document.getElementById('chat-container');
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message user-message';
+                messageDiv.innerHTML = `<strong>你:</strong> ${message}`;
+                chatContainer.appendChild(messageDiv);
+                
+                // 模拟系统回复
+                setTimeout(() => {
+                    const replyDiv = document.createElement('div');
+                    replyDiv.className = 'message system-message';
+                    replyDiv.innerHTML = `<strong>系统:</strong> 消息已发送到聊天室。`;
+                    chatContainer.appendChild(replyDiv);
+                    chatContainer.scrollTop = chatContainer.scrollHeight;
+                }, 500);
+                
+                input.value = '';
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+        }
+        
+        // 回车发送消息
+        document.getElementById('chat-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendChatMessage();
+            }
+        });
+        
+        // 其他功能
+        function showProfileModal() {
+            alert('个人资料编辑功能正在开发中...');
+        }
+        
+        function showAchievements() {
+            alert('成就系统功能正在开发中...');
+        }
+        
+        function showFriends() {
+            alert('好友系统功能正在开发中...');
+        }
+    </script>
+</body>
+</html> 

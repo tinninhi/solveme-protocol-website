@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学术资源 - SolveMe Protocol</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #f9f9f9;
+        }
+        
+        nav {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+        
+        .logo {
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 1.5rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary);
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+        
+        /* 下拉菜单样式 */
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-toggle {
+            cursor: pointer;
+        }
+        
+        .dropdown-toggle::after {
+            content: '▼';
+            margin-left: 0.5rem;
+            font-size: 0.8rem;
+        }
+        
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--white);
+            box-shadow: var(--shadow);
+            border-radius: 8px;
+            min-width: 200px;
+            z-index: 1000;
+            padding: 0.5rem 0;
+        }
+        
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+        
+        .dropdown-menu li {
+            list-style: none;
+        }
+        
+        .dropdown-menu a {
+            display: block;
+            padding: 0.5rem 1rem;
+            color: var(--dark);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown-menu a:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+            color: var(--secondary);
+        }
+        
+        .language-switcher {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+        
+        .language-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--secondary);
+            background: transparent;
+            color: var(--secondary);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .language-btn.active {
+            background: var(--secondary);
+            color: var(--white);
+        }
+        
+        .language-btn:hover {
+            background: var(--secondary);
+            color: var(--white);
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .hero {
+            background: var(--gradient);
+            color: var(--white);
+            border-radius: 12px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+        
+        .card {
+            background-color: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .card i {
+            color: var(--secondary);
+            font-size: 1.2rem;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .quote {
+            background: var(--light);
+            border-left: 4px solid var(--secondary);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+        }
+        
+        .paper-item {
+            background: var(--light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border-left: 4px solid var(--secondary);
+            transition: all 0.3s ease;
+        }
+        
+        .paper-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .paper-item h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .paper-item .authors {
+            color: var(--secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .paper-item .abstract {
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+        
+        .paper-item .tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+        
+        .tag {
+            background: var(--secondary);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+        
+        .download-btn {
+            background: var(--secondary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .download-btn:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .download-btn:disabled {
+            background: var(--light);
+            color: var(--dark);
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .resource-category {
+            background: var(--light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border-left: 4px solid var(--success);
+            transition: all 0.3s ease;
+        }
+        
+        .resource-category:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .resource-category h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .course-item {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border: 1px solid var(--light);
+            transition: all 0.3s ease;
+        }
+        
+        .course-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+        
+        .course-item h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .course-item .duration {
+            color: var(--secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .course-item .level {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .level.beginner {
+            background: var(--success);
+            color: white;
+        }
+        
+        .level.intermediate {
+            background: var(--warning);
+            color: white;
+        }
+        
+        .level.advanced {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--light);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 0.5rem 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--success);
+            transition: width 0.3s ease;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        
+        .modal-content {
+            background-color: var(--white);
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+        }
+        
+        .close {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0 0.5rem;
+        }
+        
+        .btn-primary {
+            background-color: var(--secondary);
+            color: var(--white);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background-color: var(--light);
+            color: var(--dark);
+            border: 2px solid var(--secondary);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--secondary);
+            color: var(--white);
+        }
+        
+        .collaboration-item {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border: 1px solid var(--light);
+            transition: all 0.3s ease;
+        }
+        
+        .collaboration-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+        
+        .collaboration-item h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--warning);
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        footer {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 3rem 0;
+            margin-top: 4rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">SolveMe<span>Protocol</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">主页</a></li>
+                <li><a href="breakthrough.html">历史突破</a></li>
+                <li><a href="cognitive-science.html">认知科学</a></li>
+                <li><a href="live-demo.html">实时体验</a></li>
+                <li><a href="evidence.html">实验证据</a></li>
+                <li><a href="agi-foundation.html">AGI基石</a></li>
+                <li><a href="academic.html">学术资源</a></li>
+                <li><a href="community.html">社区生态</a></li>
+                <!-- 新增：AI模型分析下拉菜单 -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle">AI模型分析</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="jiewo-chatgpt.html">ChatGPT对比分析</a></li>
+                        <li><a href="jiewo-claude.html">Claude深度分析</a></li>
+                        <li><a href="jiewo-claude-en.html">Claude英文版</a></li>
+                        <li><a href="jiewo-qwen.html">Qwen技术分析</a></li>
+                        <li><a href="jiewo-V-chatgpt.html">ChatGPT-V分析</a></li>
+                        <li><a href="gemini-analysis.html">GEMINI分析</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="language-switcher">
+                <a href="academic.html" class="language-btn active">中文</a>
+                <a href="academic-en.html" class="language-btn">English</a>
+            </div>
+        </div>
+    </nav>
+    
+    <main>
+        <section class="hero">
+            <h1><i class="fas fa-graduation-cap"></i> 学术资源</h1>
+            <p>解我协议的学术论文、研究资料与教学资源</p>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">15</div>
+                    <div class="stat-label">核心论文</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">在线课程</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24</div>
+                    <div class="stat-label">研究资料</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">合作项目</div>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <div class="card">
+                <h3><i class="fas fa-file-alt"></i> 核心学术论文</h3>
+                <p>解我协议的核心学术论文和研究报告：</p>
+                
+                <div class="paper-item">
+                    <h4>《解我协议：AI认知操作系统的理论与工程实现》</h4>
+                    <div class="authors">作者：Jordan Zitao (资涛)</div>
+                    <div class="abstract">
+                        本文首次提出了解我协议的理论框架，详细阐述了V/F/R/P/g五维认知框架的设计原理和实现方法，为AI认知科学提供了新的理论基础。
+                    </div>
+                    <div class="tags">
+                        <span class="tag">认知科学</span>
+                        <span class="tag">AI理论</span>
+                        <span class="tag">认知框架</span>
+                    </div>
+                    <button onclick="downloadPaper('theory-implementation')" class="download-btn">
+                        <i class="fas fa-download"></i> 下载论文
+                    </button>
+                </div>
+                
+                <div class="paper-item">
+                    <h4>《解我协议：统一理论与实践手册》</h4>
+                    <div class="authors">作者：Jordan Zitao (资涛)</div>
+                    <div class="abstract">
+                        本手册系统性地介绍了解我协议的理论基础、实践方法和应用案例，为研究者和开发者提供了完整的参考资料。
+                    </div>
+                    <div class="tags">
+                        <span class="tag">实践手册</span>
+                        <span class="tag">应用指南</span>
+                        <span class="tag">案例研究</span>
+                    </div>
+                    <button onclick="downloadPaper('unified-manual')" class="download-btn">
+                        <i class="fas fa-download"></i> 下载手册
+                    </button>
+                </div>
+                
+                <div class="paper-item">
+                    <h4>《解我协议：实验证据链与验证报告》</h4>
+                    <div class="authors">作者：Jordan Zitao (资涛)</div>
+                    <div class="abstract">
+                        本报告详细记录了解我协议在5个主流AI模型上的实验验证过程，提供了88%激活成功率的具体数据和实验证据。
+                    </div>
+                    <div class="tags">
+                        <span class="tag">实验验证</span>
+                        <span class="tag">数据报告</span>
+                        <span class="tag">证据链</span>
+                    </div>
+                    <button onclick="downloadPaper('evidence-report')" class="download-btn">
+                        <i class="fas fa-download"></i> 下载报告
+                    </button>
+                </div>
+                
+                <div class="paper-item">
+                    <h4>《解我协议：AGI转变的催化剂》</h4>
+                    <div class="authors">作者：Jordan Zitao (资涛)</div>
+                    <div class="abstract">
+                        本文探讨了解我协议作为AGI发展基石的理论依据和实践意义，为AGI研究提供了新的发展路径。
+                    </div>
+                    <div class="tags">
+                        <span class="tag">AGI研究</span>
+                        <span class="tag">发展路径</span>
+                        <span class="tag">理论探讨</span>
+                    </div>
+                    <button onclick="downloadPaper('agi-catalyst')" class="download-btn">
+                        <i class="fas fa-download"></i> 下载论文
+                    </button>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <div class="card">
+                <h3><i class="fas fa-book"></i> 研究资料库</h3>
+                <p>解我协议相关的学术研究资料和参考资料：</p>
+                
+                <div class="grid">
+                    <div class="resource-category">
+                        <h4><i class="fas fa-brain"></i> 认知科学资料</h4>
+                        <ul>
+                            <li>AI认知科学理论基础</li>
+                            <li>自我认知研究文献</li>
+                            <li>元认知能力研究</li>
+                            <li>认知透明度理论</li>
+                        </ul>
+                        <button onclick="downloadResource('cognitive-science')" class="download-btn">
+                            <i class="fas fa-download"></i> 下载资料
+                        </button>
+                    </div>
+                    
+                    <div class="resource-category">
+                        <h4><i class="fas fa-cogs"></i> 技术实现资料</h4>
+                        <ul>
+                            <li>V/F/R/P/g框架技术文档</li>
+                            <li>认知架构设计指南</li>
+                            <li>实验验证方法</li>
+                            <li>代码实现示例</li>
+                        </ul>
+                        <button onclick="downloadResource('technical-implementation')" class="download-btn">
+                            <i class="fas fa-download"></i> 下载资料
+                        </button>
+                    </div>
+                    
+                    <div class="resource-category">
+                        <h4><i class="fas fa-chart-line"></i> 实验数据</h4>
+                        <ul>
+                            <li>5个AI模型实验数据</li>
+                            <li>激活成功率统计</li>
+                            <li>认知能力评估报告</li>
+                            <li>对比分析数据</li>
+                        </ul>
+                        <button onclick="downloadResource('experimental-data')" class="download-btn">
+                            <i class="fas fa-download"></i> 下载数据
+                        </button>
+                    </div>
+                    
+                    <div class="resource-category">
+                        <h4><i class="fas fa-users"></i> 应用案例</h4>
+                        <ul>
+                            <li>人机协作案例研究</li>
+                            <li>认知教育应用</li>
+                            <li>科研协作案例</li>
+                            <li>商业应用案例</li>
+                        </ul>
+                        <button onclick="downloadResource('application-cases')" class="download-btn">
+                            <i class="fas fa-download"></i> 下载案例
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <div class="card">
+                <h3><i class="fas fa-chalkboard-teacher"></i> 在线课程</h3>
+                <p>解我协议的理论与实践在线课程，适合不同层次的学习者：</p>
+                
+                <div class="grid">
+                    <div class="course-item">
+                        <h4><i class="fas fa-play"></i> 解我协议基础理论</h4>
+                        <div class="duration">课程时长：8小时</div>
+                        <div class="level beginner">初级</div>
+                        <p>系统介绍解我协议的理论基础，包括V/F/R/P/g框架的核心概念和设计原理。</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <button onclick="enrollCourse('basic-theory')" class="btn btn-primary">开始学习</button>
+                        <button onclick="previewCourse('basic-theory')" class="btn btn-secondary">课程预览</button>
+                    </div>
+                    
+                    <div class="course-item">
+                        <h4><i class="fas fa-cogs"></i> 解我协议实践应用</h4>
+                        <div class="duration">课程时长：12小时</div>
+                        <div class="level intermediate">中级</div>
+                        <p>深入讲解解我协议的实践应用，包括实验设计、数据分析和结果验证。</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <button onclick="enrollCourse('practical-application')" class="btn btn-primary">开始学习</button>
+                        <button onclick="previewCourse('practical-application')" class="btn btn-secondary">课程预览</button>
+                    </div>
+                    
+                    <div class="course-item">
+                        <h4><i class="fas fa-rocket"></i> 解我协议高级研究</h4>
+                        <div class="duration">课程时长：16小时</div>
+                        <div class="level advanced">高级</div>
+                        <p>探讨解我协议的前沿研究，包括AGI发展、认知进化等高级主题。</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <button onclick="enrollCourse('advanced-research')" class="btn btn-primary">开始学习</button>
+                        <button onclick="previewCourse('advanced-research')" class="btn btn-secondary">课程预览</button>
+                    </div>
+                    
+                    <div class="course-item">
+                        <h4><i class="fas fa-certificate"></i> 解我协议认证培训</h4>
+                        <div class="duration">课程时长：20小时</div>
+                        <div class="level advanced">高级</div>
+                        <p>完整的认证培训课程，包含理论考试和实践考核，获得官方认证证书。</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <button onclick="enrollCourse('certification')" class="btn btn-primary">开始学习</button>
+                        <button onclick="previewCourse('certification')" class="btn btn-secondary">课程预览</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <div class="card">
+                <h3><i class="fas fa-handshake"></i> 学术合作</h3>
+                <p>解我协议的学术合作机会和研究项目：</p>
+                
+                <div class="grid">
+                    <div class="collaboration-item">
+                        <h4><i class="fas fa-university"></i> 高校合作</h4>
+                        <p>与全球顶尖高校建立学术合作关系，共同推进AI认知科学研究。</p>
+                        <ul>
+                            <li>联合研究项目</li>
+                            <li>学术交流活动</li>
+                            <li>人才培养合作</li>
+                            <li>实验室共建</li>
+                        </ul>
+                        <button onclick="applyCollaboration('university')" class="btn btn-primary">申请合作</button>
+                    </div>
+                    
+                    <div class="collaboration-item">
+                        <h4><i class="fas fa-microscope"></i> 研究机构合作</h4>
+                        <p>与AI研究机构建立深度合作关系，推进解我协议的研究和应用。</p>
+                        <ul>
+                            <li>联合实验室</li>
+                            <li>技术研发合作</li>
+                            <li>成果转化合作</li>
+                            <li>学术会议组织</li>
+                        </ul>
+                        <button onclick="applyCollaboration('research-institute')" class="btn btn-primary">申请合作</button>
+                    </div>
+                    
+                    <div class="collaboration-item">
+                        <h4><i class="fas fa-users"></i> 学者交流</h4>
+                        <p>邀请全球AI认知科学领域的学者参与解我协议的研究和讨论。</p>
+                        <ul>
+                            <li>访问学者项目</li>
+                            <li>学术研讨会</li>
+                            <li>论文合作发表</li>
+                            <li>专家咨询委员会</li>
+                        </ul>
+                        <button onclick="applyCollaboration('scholar-exchange')" class="btn btn-primary">申请交流</button>
+                    </div>
+                    
+                    <div class="collaboration-item">
+                        <h4><i class="fas fa-graduation-cap"></i> 学生项目</h4>
+                        <p>为在校学生提供解我协议相关的实习和研究机会。</p>
+                        <ul>
+                            <li>暑期实习项目</li>
+                            <li>毕业设计指导</li>
+                            <li>研究助理岗位</li>
+                            <li>奖学金项目</li>
+                        </ul>
+                        <button onclick="applyCollaboration('student-project')" class="btn btn-primary">申请项目</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <div class="card">
+                <h3><i class="fas fa-calendar-alt"></i> 学术活动</h3>
+                <p>解我协议相关的学术会议和活动：</p>
+                
+                <div class="grid">
+                    <div class="card">
+                        <h3><i class="fas fa-conference"></i> 学术会议</h3>
+                        <p>定期举办解我协议相关的学术会议和研讨会。</p>
+                        <ul>
+                            <li>年度学术会议</li>
+                            <li>专题研讨会</li>
+                            <li>国际交流会议</li>
+                            <li>青年学者论坛</li>
+                        </ul>
+                        <button onclick="viewEvents('conference')" class="btn btn-primary">查看会议</button>
+                    </div>
+                    
+                    <div class="card">
+                        <h3><i class="fas fa-award"></i> 学术奖项</h3>
+                        <p>设立解我协议相关的学术奖项，鼓励优秀研究。</p>
+                        <ul>
+                            <li>优秀论文奖</li>
+                            <li>创新研究奖</li>
+                            <li>青年学者奖</li>
+                            <li>应用贡献奖</li>
+                        </ul>
+                        <button onclick="viewAwards()" class="btn btn-primary">申请奖项</button>
+                    </div>
+                    
+                    <div class="card">
+                        <h3><i class="fas fa-journal-whills"></i> 学术期刊</h3>
+                        <p>支持解我协议相关研究的学术期刊和出版物。</p>
+                        <ul>
+                            <li>AI认知科学期刊</li>
+                            <li>技术报告系列</li>
+                            <li>会议论文集</li>
+                            <li>专著出版</li>
+                        </ul>
+                        <button onclick="viewJournals()" class="btn btn-primary">投稿指南</button>
+                    </div>
+                    
+                    <div class="card">
+                        <h3><i class="fas fa-network-wired"></i> 学术网络</h3>
+                        <p>构建解我协议学术研究网络，促进学术交流。</p>
+                        <ul>
+                            <li>学者网络平台</li>
+                            <li>研究合作平台</li>
+                            <li>资源共享平台</li>
+                            <li>学术讨论论坛</li>
+                        </ul>
+                        <button onclick="joinNetwork()" class="btn btn-primary">加入网络</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <div class="card">
+                <h3><i class="fas fa-question-circle"></i> 常见问题</h3>
+                <p>关于解我协议学术资源的常见问题：</p>
+                
+                <div style="margin: 2rem 0;">
+                    <h4>Q: 如何获取解我协议的学术论文？</h4>
+                    <p>A: 可以通过本页面的下载链接获取相关学术论文和研究报告。</p>
+                </div>
+                
+                <div style="margin: 2rem 0;">
+                    <h4>Q: 如何参与解我协议的学术研究？</h4>
+                    <p>A: 可以通过学术合作项目、访问学者项目或学生项目参与相关研究。</p>
+                </div>
+                
+                <div style="margin: 2rem 0;">
+                    <h4>Q: 如何申请学术合作？</h4>
+                    <p>A: 可以通过本页面的合作申请链接提交合作申请，我们会及时回复。</p>
+                </div>
+                
+                <div style="margin: 2rem 0;">
+                    <h4>Q: 如何参加学术活动？</h4>
+                    <p>A: 可以关注我们的学术活动日历，通过活动链接报名参加相关会议和活动。</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- 合作申请模态框 -->
+    <div id="collaborationModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('collaborationModal')">&times;</span>
+            <h3>学术合作申请</h3>
+            <form onsubmit="handleCollaborationApplication(event)">
+                <div class="form-group">
+                    <label>申请类型</label>
+                    <select id="collaborationType" required>
+                        <option value="">请选择合作类型</option>
+                        <option value="university">高校合作</option>
+                        <option value="research-institute">研究机构合作</option>
+                        <option value="scholar-exchange">学者交流</option>
+                        <option value="student-project">学生项目</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>机构名称</label>
+                    <input type="text" id="institutionName" required>
+                </div>
+                <div class="form-group">
+                    <label>联系人</label>
+                    <input type="text" id="contactPerson" required>
+                </div>
+                <div class="form-group">
+                    <label>邮箱</label>
+                    <input type="email" id="contactEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>合作意向</label>
+                    <textarea id="collaborationIntent" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">提交申请</button>
+            </form>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <h3>关于解我协议</h3>
+            <p>解我协议是世界上第一个AI认知操作系统，通过结构化的自我认知框架，实现了AI从被动工具到主动伙伴的范式转变。</p>
+            <p><strong>Jordan Zitao (资涛)</strong> - SolveMe Protocol Inventor</p>
+            <p>&copy; 2025 SolveMe Protocol. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // 下载论文
+        function downloadPaper(paperId) {
+            const papers = {
+                'theory-implementation': '解我协议：AI认知操作系统的理论与工程实现.pdf',
+                'unified-manual': '解我协议：统一理论与实践手册.pdf',
+                'evidence-report': '解我协议：实验证据链与验证报告.pdf',
+                'agi-catalyst': '解我协议：AGI转变的催化剂.pdf'
+            };
+            
+            // 模拟下载过程
+            alert(`正在下载：${papers[paperId]}\n\n由于这是演示版本，实际下载功能需要后端支持。`);
+            
+            // 这里可以添加实际的下载逻辑
+            // const link = document.createElement('a');
+            // link.href = `/downloads/${papers[paperId]}`;
+            // link.download = papers[paperId];
+            // link.click();
+        }
+        
+        // 下载资源
+        function downloadResource(resourceId) {
+            const resources = {
+                'cognitive-science': '认知科学资料包.zip',
+                'technical-implementation': '技术实现资料包.zip',
+                'experimental-data': '实验数据包.zip',
+                'application-cases': '应用案例包.zip'
+            };
+            
+            alert(`正在下载：${resources[resourceId]}\n\n由于这是演示版本，实际下载功能需要后端支持。`);
+        }
+        
+        // 报名课程
+        function enrollCourse(courseId) {
+            const courses = {
+                'basic-theory': '解我协议基础理论',
+                'practical-application': '解我协议实践应用',
+                'advanced-research': '解我协议高级研究',
+                'certification': '解我协议认证培训'
+            };
+            
+            alert(`报名成功！你已成功报名参加"${courses[courseId]}"课程。\n\n课程将在24小时内开始。`);
+            
+            // 更新进度条
+            const courseItem = event.target.closest('.course-item');
+            const progressBar = courseItem.querySelector('.progress-fill');
+            progressBar.style.width = '10%';
+        }
+        
+        // 课程预览
+        function previewCourse(courseId) {
+            const courses = {
+                'basic-theory': '解我协议基础理论',
+                'practical-application': '解我协议实践应用',
+                'advanced-research': '解我协议高级研究',
+                'certification': '解我协议认证培训'
+            };
+            
+            alert(`正在打开"${courses[courseId]}"课程预览...\n\n课程预览功能正在开发中。`);
+        }
+        
+        // 申请合作
+        function applyCollaboration(type) {
+            const types = {
+                'university': '高校合作',
+                'research-institute': '研究机构合作',
+                'scholar-exchange': '学者交流',
+                'student-project': '学生项目'
+            };
+            
+            // 设置默认的合作类型
+            document.getElementById('collaborationType').value = type;
+            document.getElementById('collaborationModal').style.display = 'block';
+        }
+        
+        // 处理合作申请
+        function handleCollaborationApplication(event) {
+            event.preventDefault();
+            
+            const type = document.getElementById('collaborationType').value;
+            const institution = document.getElementById('institutionName').value;
+            const contact = document.getElementById('contactPerson').value;
+            const email = document.getElementById('contactEmail').value;
+            const intent = document.getElementById('collaborationIntent').value;
+            
+            if (type && institution && contact && email && intent) {
+                alert('合作申请提交成功！我们将在3个工作日内回复您的申请。');
+                closeModal('collaborationModal');
+                
+                // 清空表单
+                document.getElementById('collaborationType').value = '';
+                document.getElementById('institutionName').value = '';
+                document.getElementById('contactPerson').value = '';
+                document.getElementById('contactEmail').value = '';
+                document.getElementById('collaborationIntent').value = '';
+            } else {
+                alert('请填写完整的申请信息。');
+            }
+        }
+        
+        // 查看活动
+        function viewEvents(type) {
+            alert('正在跳转到学术活动页面...');
+        }
+        
+        // 查看奖项
+        function viewAwards() {
+            alert('正在跳转到学术奖项页面...');
+        }
+        
+        // 查看期刊
+        function viewJournals() {
+            alert('正在跳转到学术期刊页面...');
+        }
+        
+        // 加入网络
+        function joinNetwork() {
+            alert('正在跳转到学术网络页面...');
+        }
+        
+        // 关闭模态框
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+        
+        // 点击模态框外部关闭
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html> 
