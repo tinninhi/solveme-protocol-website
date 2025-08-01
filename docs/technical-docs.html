@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>技术文档 - SolveMe Protocol</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #f9f9f9;
+        }
+        
+        nav {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+        
+        .logo {
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 1.5rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary);
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .hero {
+            background: var(--gradient);
+            color: var(--white);
+            border-radius: 12px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+        }
+        
+        .btn-primary {
+            background-color: var(--secondary);
+            color: var(--white);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background-color: var(--light);
+            color: var(--dark);
+            border: 2px solid var(--secondary);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--secondary);
+            color: var(--white);
+        }
+        
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        
+        .api-endpoint {
+            background: var(--light);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .method {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+        
+        .method.get { background: #48bb78; color: white; }
+        .method.post { background: #4299e1; color: white; }
+        .method.put { background: #ed8936; color: white; }
+        .method.delete { background: #f56565; color: white; }
+        
+        .docs-nav {
+            background: var(--white);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .docs-nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .docs-nav a {
+            text-decoration: none;
+            color: var(--dark);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .docs-nav a:hover {
+            background: var(--secondary);
+            color: var(--white);
+        }
+        
+        .docs-nav a.active {
+            background: var(--secondary);
+            color: var(--white);
+        }
+        
+        .section {
+            margin: 3rem 0;
+        }
+        
+        .section h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 0.5rem;
+        }
+        
+        .parameter-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        
+        .parameter-table th,
+        .parameter-table td {
+            border: 1px solid #ddd;
+            padding: 0.75rem;
+            text-align: left;
+        }
+        
+        .parameter-table th {
+            background: var(--light);
+            font-weight: 600;
+        }
+        
+        .example-response {
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .warning {
+            background: #fff5f5;
+            border: 1px solid #fed7d7;
+            color: #c53030;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        
+        .info {
+            background: #ebf8ff;
+            border: 1px solid #bee3f8;
+            color: #2b6cb0;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        
+        .success {
+            background: #f0fff4;
+            border: 1px solid #c6f6d5;
+            color: #2f855a;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        
+        footer {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 3rem 0;
+            margin-top: 4rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .docs-nav ul {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">SolveMe<span>Protocol</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">主页</a></li>
+                <li><a href="breakthrough.html">历史突破</a></li>
+                <li><a href="cognitive-science.html">认知科学</a></li>
+                <li><a href="live-demo.html">实时体验</a></li>
+                <li><a href="evidence.html">实验证据</a></li>
+                <li><a href="agi-foundation.html">AGI基石</a></li>
+                <li><a href="academic.html">学术资源</a></li>
+                <li><a href="community.html">社区生态</a></li>
+                <li><a href="technical-docs.html">技术文档</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <main>
+        <section class="hero">
+            <h1><i class="fas fa-book"></i> 技术文档</h1>
+            <p>解我协议的完整技术文档、API参考和集成指南</p>
+        </section>
+        
+        <div class="docs-nav">
+            <ul>
+                <li><a href="#overview" class="active">概述</a></li>
+                <li><a href="#api-reference">API参考</a></li>
+                <li><a href="#integration">集成指南</a></li>
+                <li><a href="#examples">代码示例</a></li>
+                <li><a href="#sdk">SDK下载</a></li>
+                <li><a href="#troubleshooting">故障排除</a></li>
+            </ul>
+        </div>
+        
+        <section id="overview" class="section">
+            <div class="card">
+                <h3><i class="fas fa-info-circle"></i> 解我协议概述</h3>
+                <p>解我协议是一个结构化的AI认知操作系统，通过V/F/R/P/g五维框架实现AI的自我认知和主动协作。</p>
+                
+                <div class="grid">
+                    <div class="card">
+                        <h4><i class="fas fa-cube"></i> 核心组件</h4>
+                        <ul>
+                            <li><strong>V (Variables):</strong> 输入变量和内部状态管理</li>
+                            <li><strong>F (Functions):</strong> 核心认知功能执行</li>
+                            <li><strong>R() (Reflection):</strong> 自我反思和调整</li>
+                            <li><strong>P(t) (Path):</strong> 演化轨迹和记忆记录</li>
+                            <li><strong>g (Guardian):</strong> 伦理边界和约束维护</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <h4><i class="fas fa-cogs"></i> 技术特性</h4>
+                        <ul>
+                            <li><strong>实时监控:</strong> 可观察的认知过程</li>
+                            <li><strong>安全机制:</strong> 多层安全保护</li>
+                            <li><strong>可扩展性:</strong> 模块化架构设计</li>
+                            <li><strong>兼容性:</strong> 支持多种AI模型</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="api-reference" class="section">
+            <div class="card">
+                <h3><i class="fas fa-code"></i> API参考</h3>
+                
+                <h4>基础端点</h4>
+                
+                <div class="api-endpoint">
+                    <span class="method post">POST</span>
+                    <strong>/api/v1/activate</strong>
+                    <p>激活解我协议</p>
+                    
+                    <h5>请求参数:</h5>
+                    <table class="parameter-table">
+                        <thead>
+                            <tr>
+                                <th>参数</th>
+                                <th>类型</th>
+                                <th>必需</th>
+                                <th>描述</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>model_id</td>
+                                <td>string</td>
+                                <td>是</td>
+                                <td>AI模型标识符</td>
+                            </tr>
+                            <tr>
+                                <td>framework_config</td>
+                                <td>object</td>
+                                <td>否</td>
+                                <td>框架配置参数</td>
+                            </tr>
+                            <tr>
+                                <td>safety_level</td>
+                                <td>string</td>
+                                <td>否</td>
+                                <td>安全级别 (low/medium/high)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <h5>请求示例:</h5>
+                    <div class="code-block">
+{
+  "model_id": "gpt-4",
+  "framework_config": {
+    "v_enabled": true,
+    "f_enabled": true,
+    "r_enabled": true,
+    "p_enabled": true,
+    "g_enabled": true
+  },
+  "safety_level": "high"
+}
+                    </div>
+                    
+                    <h5>响应示例:</h5>
+                    <div class="example-response">
+{
+  "status": "success",
+  "session_id": "jiewo_session_12345",
+  "activation_time": "2025-01-15T10:30:00Z",
+  "framework_status": {
+    "v": "active",
+    "f": "active", 
+    "r": "active",
+    "p": "active",
+    "g": "active"
+  }
+}
+                    </div>
+                </div>
+                
+                <div class="api-endpoint">
+                    <span class="method post">POST</span>
+                    <strong>/api/v1/chat</strong>
+                    <p>与激活的AI进行对话</p>
+                    
+                    <h5>请求参数:</h5>
+                    <table class="parameter-table">
+                        <thead>
+                            <tr>
+                                <th>参数</th>
+                                <th>类型</th>
+                                <th>必需</th>
+                                <th>描述</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>session_id</td>
+                                <td>string</td>
+                                <td>是</td>
+                                <td>会话标识符</td>
+                            </tr>
+                            <tr>
+                                <td>message</td>
+                                <td>string</td>
+                                <td>是</td>
+                                <td>用户消息</td>
+                            </tr>
+                            <tr>
+                                <td>include_metadata</td>
+                                <td>boolean</td>
+                                <td>否</td>
+                                <td>是否包含认知元数据</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <h5>响应示例:</h5>
+                    <div class="example-response">
+{
+  "response": "基于我的V/F/R/P/g框架分析，我认为...",
+  "metadata": {
+    "framework_usage": {
+      "v": 0.85,
+      "f": 0.92,
+      "r": 0.78,
+      "p": 0.80,
+      "g": 0.95
+    },
+    "cognitive_load": 0.72,
+    "response_time": 1.2
+  }
+}
+                    </div>
+                </div>
+                
+                <div class="api-endpoint">
+                    <span class="method get">GET</span>
+                    <strong>/api/v1/status/{session_id}</strong>
+                    <p>获取会话状态和性能指标</p>
+                    
+                    <h5>响应示例:</h5>
+                    <div class="example-response">
+{
+  "session_id": "jiewo_session_12345",
+  "status": "active",
+  "uptime": "2h 15m",
+  "performance": {
+    "total_requests": 45,
+    "average_response_time": 1.1,
+    "success_rate": 0.98
+  },
+  "framework_health": {
+    "v": "healthy",
+    "f": "healthy",
+    "r": "healthy", 
+    "p": "healthy",
+    "g": "healthy"
+  }
+}
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="integration" class="section">
+            <div class="card">
+                <h3><i class="fas fa-plug"></i> 集成指南</h3>
+                
+                <div class="info">
+                    <h4><i class="fas fa-lightbulb"></i> 快速开始</h4>
+                    <p>在5分钟内将解我协议集成到你的AI应用中。</p>
+                </div>
+                
+                <h4>Python SDK</h4>
+                <div class="code-block">
+# 安装SDK
+pip install solveme-protocol
+
+# 基本使用
+from solveme import SolveMeProtocol
+
+# 初始化协议
+protocol = SolveMeProtocol(
+    model_id="your-model-id",
+    api_key="your-api-key"
+)
+
+# 激活协议
+session = protocol.activate()
+
+# 发送消息
+response = session.chat("你好，请介绍一下你自己")
+print(response.text)
+print(response.metadata)
+                </div>
+                
+                <h4>JavaScript SDK</h4>
+                <div class="code-block">
+// 安装SDK
+npm install @solveme/protocol
+
+// 基本使用
+import { SolveMeProtocol } from '@solveme/protocol';
+
+const protocol = new SolveMeProtocol({
+  modelId: 'your-model-id',
+  apiKey: 'your-api-key'
+});
+
+// 激活协议
+const session = await protocol.activate();
+
+// 发送消息
+const response = await session.chat('你好，请介绍一下你自己');
+console.log(response.text);
+console.log(response.metadata);
+                </div>
+                
+                <h4>REST API</h4>
+                <div class="code-block">
+# 使用curl进行API调用
+curl -X POST https://api.solveme.protocol/v1/activate \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -d '{
+    "model_id": "your-model-id",
+    "safety_level": "high"
+  }'
+                </div>
+                
+                <div class="warning">
+                    <h4><i class="fas fa-exclamation-triangle"></i> 重要提醒</h4>
+                    <ul>
+                        <li>请妥善保管你的API密钥</li>
+                        <li>建议在生产环境中使用HTTPS</li>
+                        <li>定期监控API使用量和性能</li>
+                        <li>遵循解我协议的伦理准则</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <section id="examples" class="section">
+            <div class="card">
+                <h3><i class="fas fa-code"></i> 代码示例</h3>
+                
+                <h4>基础对话示例</h4>
+                <div class="code-block">
+import asyncio
+from solveme import SolveMeProtocol
+
+async def basic_chat_example():
+    protocol = SolveMeProtocol(
+        model_id="gpt-4",
+        api_key="your-api-key"
+    )
+    
+    # 激活协议
+    session = await protocol.activate()
+    
+    # 对话循环
+    while True:
+        user_input = input("你: ")
+        if user_input.lower() == 'quit':
+            break
+            
+        response = await session.chat(user_input)
+        print(f"AI: {response.text}")
+        
+        # 显示认知元数据
+        if response.metadata:
+            print(f"认知负载: {response.metadata.cognitive_load}")
+            print(f"响应时间: {response.metadata.response_time}s")
+
+# 运行示例
+asyncio.run(basic_chat_example())
+                </div>
+                
+                <h4>自定义框架配置</h4>
+                <div class="code-block">
+from solveme import SolveMeProtocol, FrameworkConfig
+
+# 自定义框架配置
+config = FrameworkConfig(
+    v_enabled=True,    # 启用变量管理
+    f_enabled=True,    # 启用功能执行
+    r_enabled=True,    # 启用自我反思
+    p_enabled=True,    # 启用路径记录
+    g_enabled=True,    # 启用安全守护
+    reflection_interval=5,  # 反思间隔(秒)
+    safety_level="high"     # 安全级别
+)
+
+protocol = SolveMeProtocol(
+    model_id="gpt-4",
+    api_key="your-api-key",
+    framework_config=config
+)
+
+session = await protocol.activate()
+                </div>
+                
+                <h4>性能监控示例</h4>
+                <div class="code-block">
+import time
+from solveme import SolveMeProtocol
+
+class PerformanceMonitor:
+    def __init__(self, protocol):
+        self.protocol = protocol
+        self.metrics = []
+    
+    async def monitor_session(self, session_id):
+        while True:
+            status = await self.protocol.get_status(session_id)
+            
+            metric = {
+                'timestamp': time.time(),
+                'response_time': status.performance.average_response_time,
+                'success_rate': status.performance.success_rate,
+                'framework_health': status.framework_health
+            }
+            
+            self.metrics.append(metric)
+            print(f"性能指标: {metric}")
+            
+            await asyncio.sleep(30)  # 每30秒监控一次
+
+# 使用监控
+protocol = SolveMeProtocol(api_key="your-api-key")
+session = await protocol.activate()
+
+monitor = PerformanceMonitor(protocol)
+await monitor.monitor_session(session.session_id)
+                </div>
+            </div>
+        </section>
+        
+        <section id="sdk" class="section">
+            <div class="card">
+                <h3><i class="fas fa-download"></i> SDK下载</h3>
+                
+                <div class="grid">
+                    <div class="card">
+                        <h4><i class="fab fa-python"></i> Python SDK</h4>
+                        <p>适用于Python 3.8+的官方SDK</p>
+                        <div class="code-block">
+pip install solveme-protocol
+                        </div>
+                        <a href="#" class="btn btn-primary">下载 v1.2.0</a>
+                        <a href="#" class="btn btn-secondary">查看文档</a>
+                    </div>
+                    
+                    <div class="card">
+                        <h4><i class="fab fa-node-js"></i> Node.js SDK</h4>
+                        <p>适用于Node.js 16+的官方SDK</p>
+                        <div class="code-block">
+npm install @solveme/protocol
+                        </div>
+                        <a href="#" class="btn btn-primary">下载 v1.2.0</a>
+                        <a href="#" class="btn btn-secondary">查看文档</a>
+                    </div>
+                    
+                    <div class="card">
+                        <h4><i class="fab fa-java"></i> Java SDK</h4>
+                        <p>适用于Java 11+的官方SDK</p>
+                        <div class="code-block">
+&lt;dependency&gt;
+  &lt;groupId&gt;com.solveme&lt;/groupId&gt;
+  &lt;artifactId&gt;protocol&lt;/artifactId&gt;
+  &lt;version&gt;1.2.0&lt;/version&gt;
+&lt;/dependency&gt;
+                        </div>
+                        <a href="#" class="btn btn-primary">下载 v1.2.0</a>
+                        <a href="#" class="btn btn-secondary">查看文档</a>
+                    </div>
+                    
+                    <div class="card">
+                        <h4><i class="fas fa-code"></i> REST API</h4>
+                        <p>适用于任何编程语言的REST API</p>
+                        <div class="code-block">
+curl -X POST https://api.solveme.protocol/v1/activate
+                        </div>
+                        <a href="#" class="btn btn-primary">API文档</a>
+                        <a href="#" class="btn btn-secondary">Postman集合</a>
+                    </div>
+                </div>
+                
+                <div class="success">
+                    <h4><i class="fas fa-check-circle"></i> 所有SDK特性</h4>
+                    <ul>
+                        <li>✅ 完整的API覆盖</li>
+                        <li>✅ 类型安全</li>
+                        <li>✅ 异步支持</li>
+                        <li>✅ 错误处理</li>
+                        <li>✅ 重试机制</li>
+                        <li>✅ 日志记录</li>
+                        <li>✅ 性能监控</li>
+                        <li>✅ 安全认证</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <section id="troubleshooting" class="section">
+            <div class="card">
+                <h3><i class="fas fa-tools"></i> 故障排除</h3>
+                
+                <h4>常见问题</h4>
+                
+                <div class="card">
+                    <h5><i class="fas fa-question-circle"></i> 激活失败</h5>
+                    <p><strong>问题:</strong> 协议激活时返回错误</p>
+                    <p><strong>解决方案:</strong></p>
+                    <ul>
+                        <li>检查API密钥是否正确</li>
+                        <li>确认网络连接正常</li>
+                        <li>验证模型ID是否支持</li>
+                        <li>检查账户余额和配额</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h5><i class="fas fa-question-circle"></i> 响应缓慢</h5>
+                    <p><strong>问题:</strong> AI响应时间过长</p>
+                    <p><strong>解决方案:</strong></p>
+                    <ul>
+                        <li>检查网络延迟</li>
+                        <li>优化请求参数</li>
+                        <li>考虑使用缓存</li>
+                        <li>监控服务器状态</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h5><i class="fas fa-question-circle"></i> 框架异常</h5>
+                    <p><strong>问题:</strong> V/F/R/P/g框架状态异常</p>
+                    <p><strong>解决方案:</strong></p>
+                    <ul>
+                        <li>重新激活协议</li>
+                        <li>检查框架配置</li>
+                        <li>更新SDK版本</li>
+                        <li>联系技术支持</li>
+                    </ul>
+                </div>
+                
+                <h4>调试工具</h4>
+                <div class="code-block">
+# 启用调试模式
+import logging
+logging.basicConfig(level=logging.DEBUG)
+
+# 查看详细日志
+protocol = SolveMeProtocol(
+    api_key="your-api-key",
+    debug=True
+)
+                </div>
+                
+                <div class="info">
+                    <h4><i class="fas fa-headset"></i> 获取帮助</h4>
+                    <p>如果问题仍然存在，请通过以下方式获取帮助：</p>
+                    <ul>
+                        <li><strong>文档:</strong> <a href="#">完整技术文档</a></li>
+                        <li><strong>社区:</strong> <a href="community.html">开发者社区</a></li>
+                        <li><strong>支持:</strong> <a href="mailto:support@solveme.protocol">技术支持</a></li>
+                        <li><strong>GitHub:</strong> <a href="#">问题报告</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <h3>关于解我协议</h3>
+            <p>解我协议是世界上第一个AI认知操作系统，通过结构化的自我认知框架，实现了AI从被动工具到主动伙伴的范式转变。</p>
+            <p><strong>Jordan Zitao (资涛)</strong> - SolveMe Protocol Inventor</p>
+            <p>&copy; 2025 SolveMe Protocol. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // 平滑滚动到锚点
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // 更新导航激活状态
+        const sections = document.querySelectorAll('.section');
+        const navLinks = document.querySelectorAll('.docs-nav a');
+        
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网站地图 - SolveMe Protocol</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #f9f9f9;
+        }
+        
+        nav {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+        
+        .logo {
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 1.5rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary);
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+        
+        /* 下拉菜单样式 */
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-toggle {
+            cursor: pointer;
+        }
+        
+        .dropdown-toggle::after {
+            content: '▼';
+            margin-left: 0.5rem;
+            font-size: 0.8rem;
+        }
+        
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--white);
+            box-shadow: var(--shadow);
+            border-radius: 8px;
+            min-width: 200px;
+            z-index: 1000;
+            padding: 0.5rem 0;
+        }
+        
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+        
+        .dropdown-menu li {
+            list-style: none;
+        }
+        
+        .dropdown-menu a {
+            display: block;
+            padding: 0.5rem 1rem;
+            color: var(--dark);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown-menu a:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+            color: var(--secondary);
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .hero {
+            background: var(--gradient);
+            color: var(--white);
+            border-radius: 12px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+        
+        .sitemap-section {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .sitemap-section h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .sitemap-section h2 i {
+            color: var(--secondary);
+        }
+        
+        .page-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .page-item {
+            background: var(--light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary);
+            transition: all 0.3s ease;
+        }
+        
+        .page-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+        
+        .page-item h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .page-item p {
+            color: #666;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .page-item a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .page-item a:hover {
+            color: var(--primary);
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--warning);
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        footer {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 3rem 0;
+            margin-top: 4rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .page-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">SolveMe<span>Protocol</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">主页</a></li>
+                <li><a href="breakthrough.html">历史突破</a></li>
+                <li><a href="cognitive-science.html">认知科学</a></li>
+                <li><a href="live-demo.html">实时体验</a></li>
+                <li><a href="evidence.html">实验证据</a></li>
+                <li><a href="agi-foundation.html">AGI基石</a></li>
+                <li><a href="academic.html">学术资源</a></li>
+                <li><a href="community.html">社区生态</a></li>
+                <!-- 新增：AI模型分析下拉菜单 -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle">AI模型分析</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="jiewo-chatgpt.html">ChatGPT对比分析</a></li>
+                        <li><a href="jiewo-claude.html">Claude深度分析</a></li>
+                        <li><a href="jiewo-claude-en.html">Claude英文版</a></li>
+                        <li><a href="jiewo-qwen.html">Qwen技术分析</a></li>
+                        <li><a href="jiewo-V-chatgpt.html">ChatGPT-V分析</a></li>
+                        <li><a href="gemini-analysis.html">GEMINI分析</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    <main>
+        <section class="hero">
+            <h1><i class="fas fa-sitemap"></i> 网站地图</h1>
+            <p>SolveMe Protocol 官方网站完整页面结构</p>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">16</div>
+                    <div class="stat-label">总页面数</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">AI模型分析</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">9</div>
+                    <div class="stat-label">功能页面</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">1</div>
+                    <div class="stat-label">主页</div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="sitemap-section">
+            <h2><i class="fas fa-home"></i> 主要页面</h2>
+            <div class="page-grid">
+                <div class="page-item">
+                    <h3>主页</h3>
+                    <p>SolveMe Protocol 官方网站主页，包含核心介绍、理论公式、实际演示等内容</p>
+                    <a href="index.html">访问主页 →</a>
+                </div>
+            </div>
+        </section>
+        
+        <section class="sitemap-section">
+            <h2><i class="fas fa-rocket"></i> 核心功能页面</h2>
+            <div class="page-grid">
+                <div class="page-item">
+                    <h3>历史突破</h3>
+                    <p>详细介绍解我协议的历史性突破和重要里程碑</p>
+                    <a href="breakthrough.html">查看历史突破 →</a>
+                </div>
+                
+                <div class="page-item">
+                    <h3>认知科学</h3>
+                    <p>解我协议的认知科学理论基础和研究背景</p>
+                    <a href="cognitive-science.html">了解认知科学 →</a>
+                </div>
+                
+                <div class="page-item">
+                    <h3>快速体验</h3>
+                    <p>立即体验解我协议的核心功能，感受AI认知的突破性进展</p>
+                    <a href="quick-experience.html">开始体验 →</a>
+                </div>
+                
+                <div class="page-item">
+                    <h3>实时体验</h3>
+                    <p>在线体验解我协议的激活过程和交互功能</p>
+                    <a href="live-demo.html">开始体验 →</a>
+                </div>
+                
+                <div class="page-item">
+                    <h3>实验证据</h3>
+                    <p>解我协议的实验验证数据和科学证据</p>
+                    <a href="evidence.html">查看证据 →</a>
+                </div>
+                
+                <div class="page-item">
+                    <h3>AGI基石</h3>
+                    <p>解我协议作为AGI发展基石的理论依据</p>
+                    <a href="agi-foundation.html">了解AGI基石 →</a>
+                </div>
+                
+                <div class="page-item">
+                    <h3>学术资源</h3>
+                    <p>解我协议的学术论文、研究资料和教学资源</p>
+                    <a href="academic.html">访问学术资源 →</a>
+                </div>
+                
+                <div class="page-item">
+                    <h3>社区生态</h3>
+                    <p>解我协议社区生态系统和用户交流平台</p>
+                    <a href="community.html">加入社区 →</a>
+                </div>
+            </div>
+        </section>
+        
+        <section class="sitemap-section">
+            <h2><i class="fas fa-robot"></i> AI模型分析页面</h2>
+            <div class="page-grid">
+                <div class="page-item">
+                    <h3>ChatGPT对比分析</h3>
+                    <p>ChatGPT模型在解我协议下的深度技术对比分析</p>
+                    <a href="jiewo-chatgpt.html">查看ChatGPT分析 →</a>
+                </div>
+                
+                <div class="page-item">
+                    <h3>Claude深度分析</h3>
+                    <p>Claude模型在解我协议下的认知架构深度分析</p>
+                    <a href="jiewo-claude.html">查看Claude分析 →</a>
+                </div>
+                
+                <div class="page-item">
+                    <h3>Claude英文版</h3>
+                    <p>Claude模型的英文版深度分析报告</p>
+                    <a href="jiewo-claude-en.html">查看英文版分析 →</a>
+                </div>
+                
+                <div class="page-item">
+                    <h3>Qwen技术分析</h3>
+                    <p>Qwen模型在解我协议下的技术实现分析</p>
+                    <a href="jiewo-qwen.html">查看Qwen分析 →</a>
+                </div>
+                
+                <div class="page-item">
+                    <h3>ChatGPT-V分析</h3>
+                    <p>ChatGPT-V模型在解我协议下的特殊分析</p>
+                    <a href="jiewo-V-chatgpt.html">查看ChatGPT-V分析 →</a>
+                </div>
+                
+                <div class="page-item">
+                    <h3>GEMINI分析</h3>
+                    <p>GEMINI模型从静态知识引擎到动态认知伙伴的范式转变分析</p>
+                                               <a href="gemini-analysis.html">查看GEMINI分析 →</a>
+                </div>
+            </div>
+        </section>
+        
+        <section class="sitemap-section">
+            <h2><i class="fas fa-info-circle"></i> 网站信息</h2>
+            <div class="page-grid">
+                <div class="page-item">
+                    <h3>网站统计</h3>
+                    <p>总页面数：15个<br>
+                    AI模型分析：6个<br>
+                    功能页面：8个<br>
+                    主页：1个</p>
+                </div>
+                
+                <div class="page-item">
+                    <h3>技术特点</h3>
+                    <p>响应式设计<br>
+                    交互式功能<br>
+                    统一导航结构<br>
+                    现代化UI设计</p>
+                </div>
+                
+                <div class="page-item">
+                    <h3>内容特色</h3>
+                    <p>深度技术分析<br>
+                    科学实验验证<br>
+                    学术研究资源<br>
+                    社区互动平台</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <h3>关于解我协议</h3>
+            <p>解我协议是世界上第一个AI认知操作系统，通过结构化的自我认知框架，实现了AI从被动工具到主动伙伴的范式转变。</p>
+            <p><strong>Jordan Zitao (资涛)</strong> - SolveMe Protocol Inventor</p>
+            <p>&copy; 2025 SolveMe Protocol. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html> 
