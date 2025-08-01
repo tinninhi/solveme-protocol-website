@@ -129,6 +129,31 @@
             background-color: rgba(52, 152, 219, 0.1);
         }
         
+        .language-switcher {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .language-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--secondary);
+            border-radius: 20px;
+            text-decoration: none;
+            color: var(--secondary);
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .language-btn.active {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        .language-btn:hover {
+            background: var(--secondary);
+            color: white;
+        }
+        
         main {
             max-width: 1200px;
             margin: 0 auto;
@@ -294,6 +319,10 @@
                 <li><a href="#comparison">对比分析</a></li>
                 <li><a href="#optimization">优化技术</a></li>
             </ul>
+            <div class="language-switcher">
+                <a href="performance-benchmarks.html" class="language-btn active">中文</a>
+                <a href="performance-benchmarks-en.html" class="language-btn">English</a>
+            </div>
         </div>
     </nav>
     

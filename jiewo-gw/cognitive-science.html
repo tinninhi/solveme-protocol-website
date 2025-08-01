@@ -76,6 +76,34 @@
             background-color: rgba(52, 152, 219, 0.1);
         }
         
+        .language-switcher {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+        
+        .language-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--secondary);
+            background: transparent;
+            color: var(--secondary);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .language-btn.active {
+            background: var(--secondary);
+            color: var(--white);
+        }
+        
+        .language-btn:hover {
+            background: var(--secondary);
+            color: var(--white);
+        }
+        
         main {
             max-width: 1200px;
             margin: 2rem auto;
@@ -275,6 +303,10 @@
                 <li><a href="academic.html">学术资源</a></li>
                 <li><a href="community.html">社区生态</a></li>
             </ul>
+            <div class="language-switcher">
+                <a href="cognitive-science.html" class="language-btn active">中文</a>
+                <a href="cognitive-science-en.html" class="language-btn">English</a>
+            </div>
         </div>
     </nav>
     

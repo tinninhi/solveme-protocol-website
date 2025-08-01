@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Pages Test - SolveMe Protocol</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .status {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+        .success {
+            background: rgba(46, 204, 113, 0.3);
+            border-left: 4px solid #2ecc71;
+        }
+        .info {
+            background: rgba(52, 152, 219, 0.3);
+            border-left: 4px solid #3498db;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>GitHub Pages Deployment Test</h1>
+        
+        <div class="status success">
+            <h3>✅ Deployment Status: SUCCESS</h3>
+            <p>If you can see this page, GitHub Pages is working correctly!</p>
+        </div>
+        
+        <div class="status info">
+            <h3>📋 Test Information</h3>
+            <ul>
+                <li><strong>File:</strong> test-deployment.html</li>
+                <li><strong>Repository:</strong> solveme-protocol-website</li>
+                <li><strong>Status:</strong> GitHub Pages Active</li>
+                <li><strong>Time:</strong> <span id="currentTime"></span></li>
+            </ul>
+        </div>
+        
+        <div class="status">
+            <h3>🔗 Next Steps</h3>
+            <p>Since this test page is working, the main website should also be accessible. Try visiting:</p>
+            <ul>
+                <li><a href="index.html" style="color: #3498db;">Main Homepage</a></li>
+                <li><a href="index-en.html" style="color: #3498db;">English Homepage</a></li>
+                <li><a href="sitemap.html" style="color: #3498db;">Sitemap</a></li>
+            </ul>
+        </div>
+        
+        <div class="status">
+            <h3>📞 Contact</h3>
+            <p>If you're seeing this page but the main site isn't working, please check:</p>
+            <ol>
+                <li>GitHub Pages settings in repository</li>
+                <li>File permissions and structure</li>
+                <li>Repository visibility settings</li>
+            </ol>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('currentTime').textContent = new Date().toLocaleString();
+    </script>
+</body>
+</html> 
